@@ -2,7 +2,7 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
 from app.config import get_settings
-from app.routers import auth
+from app.routers import auth, sync
 
 
 def create_app() -> FastAPI:
@@ -15,6 +15,7 @@ def create_app() -> FastAPI:
         allow_headers=["*"],
     )
     app.include_router(auth.router)
+    app.include_router(sync.router)
 
     @app.get("/health", tags=["meta"])
     def health() -> dict:
