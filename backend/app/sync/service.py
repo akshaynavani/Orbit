@@ -136,8 +136,13 @@ def write_server_record(db: Session, user: User, entity: str, record: dict, devi
     so it gets a ``server_seq`` and shows up in every device's pull feed."""
     lock_user(db, user.id)
     spec = get_spec(entity)
-    record = {**record, "updated_at": max(record.get("updated_at", 0), now_ms()), "device_id": device_id}
-    result = _apply_one(db, user, spec, record, device_id, now_ms())
+    existing = db.get(spec.model, record["id"])
+    # Server writes are authoritative "now"; make sure they strictly beat the stored
+    # version even when two edits land within the same millisecond.
+    floor = existing.updated_at + 1 if existing is not None else 0
+    updated_at = max(record.get("updated_at", 0), now_ms(), floor)
+    record = {**record, "updated_at": updated_at, "device_id": device_id}
+    result = _apply_one(db, user, spec, record, device_id, updated_at)
     if result.status != "applied":
         db.rollback()
         raise ValueError(result.reason or result.status)
