@@ -1,0 +1,15 @@
+{
+  "expo": {
+    "name": "Orbit",
+    "slug": "orbit",
+    "version": "0.1.0",
+    "orientation": "portrait",
+    "userInterfaceStyle": "automatic",
+    "ios": { "supportsTablet": true, "bundleIdentifier": "dev.akshaynavani.orbit" },
+    "android": { "package": "dev.akshaynavani.orbit" },
+    "plugins": ["expo-sqlite", "expo-secure-store"],
+    "extra": {
+      "apiUrl": "http://localhost:8000"
+    }
+  }
+}
