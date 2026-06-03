@@ -119,7 +119,7 @@ export async function insert<E extends EntityName>(
 export async function update<E extends EntityName>(
   entity: E,
   id: string,
-  patch: Partial<Editable<EntityTypes[E]>>,
+  patch: Partial<Editable<EntityTypes[E]>> & { deleted?: boolean },
 ): Promise<EntityTypes[E] | null> {
   const existing = await findById(entity, id);
   if (!existing) return null;
