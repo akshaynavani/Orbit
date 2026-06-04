@@ -56,7 +56,7 @@ export function parseQuickAdd(input: string, ref: Date = new Date()): ParsedTask
     day.setDate(day.getDate() + Number(n) * (unit.toLowerCase().startsWith('week') ? 7 : 1));
     return ' ';
   });
-  text = text.replace(/\s(?:on\s+)?(next\s+)?(sun|mon|tue|tues|wed|thu|thur|thurs|fri|sat)[a-z]*(?=\s)/i, (m, next: string, w: string) => {
+  text = text.replace(/\s(?:on\s+)?(next\s+)?(sunday|monday|tuesday|wednesday|thursday|friday|saturday|sun|mon|tues|tue|wed|thurs|thur|thu|fri|sat)(?=\s)/i, (m, next: string, w: string) => {
     const idx = WEEKDAYS.findIndex((d) => d.startsWith(w.toLowerCase().slice(0, 3)));
     if (idx < 0) return m;
     day = startOf(ref);
