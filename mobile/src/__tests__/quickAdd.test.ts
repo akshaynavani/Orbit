@@ -1,6 +1,6 @@
 import { parseQuickAdd } from '../utils/quickAdd';
 
-// Wednesday 8 Oct 2026, 10:00 local time
+// Thursday 8 Oct 2026, 10:00 local time
 const REF = new Date(2026, 9, 8, 10, 0, 0);
 
 describe('parseQuickAdd', () => {
@@ -24,9 +24,9 @@ describe('parseQuickAdd', () => {
   });
 
   it('resolves weekday names', () => {
-    expect(new Date(parseQuickAdd('Groceries fri', REF).due_at!)).toEqual(new Date(2026, 9, 10));
-    expect(new Date(parseQuickAdd('Groceries next friday', REF).due_at!)).toEqual(new Date(2026, 9, 17));
-    expect(new Date(parseQuickAdd('Retro wednesday', REF).due_at!)).toEqual(new Date(2026, 9, 15));
+    expect(new Date(parseQuickAdd('Groceries fri', REF).due_at!)).toEqual(new Date(2026, 9, 9));
+    expect(new Date(parseQuickAdd('Groceries next friday', REF).due_at!)).toEqual(new Date(2026, 9, 16));
+    expect(new Date(parseQuickAdd('Retro thursday', REF).due_at!)).toEqual(new Date(2026, 9, 15));
   });
 
   it('does not treat words that start like weekdays as dates', () => {
