@@ -200,6 +200,6 @@ export async function applyRemote(
       // 'keep-local': our newer edit stays dirty and will be pushed next round.
     }
   });
-  dataEvents.emit(touched);
+  dataEvents.emit(touched, 'remote');
   return touched;
 }
