@@ -10,6 +10,7 @@ import ListDetailScreen from '../screens/ListDetailScreen';
 import ListsScreen from '../screens/ListsScreen';
 import NoteEditorScreen from '../screens/NoteEditorScreen';
 import NotesScreen from '../screens/NotesScreen';
+import SettingsScreen from '../screens/SettingsScreen';
 import TaskEditorScreen from '../screens/TaskEditorScreen';
 import TasksScreen from '../screens/TasksScreen';
 import { RootStackParamList, TabParamList } from './types';
@@ -43,6 +44,7 @@ function Tabs() {
       <Tab.Screen name="Habits" component={HabitsScreen} />
       <Tab.Screen name="Notes" component={NotesScreen} />
       <Tab.Screen name="Lists" component={ListsScreen} />
+      <Tab.Screen name="Settings" component={SettingsScreen} />
     </Tab.Navigator>
   );
 }
