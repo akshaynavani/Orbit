@@ -9,7 +9,7 @@ import { TaskFilter, TasksRepo } from '../db/repositories/tasks';
 import { useLiveQuery } from '../hooks/useLiveQuery';
 import { RootStackParamList } from '../navigation/types';
 import { Task } from '../types';
-import { parseQuickAdd } from '../utils/quickAdd';
+import { quickAddTask } from '../sync/quickAdd';
 import { formatDue } from '../utils/time';
 
 const FILTERS: { key: TaskFilter; label: string }[] = [
@@ -18,14 +18,6 @@ const FILTERS: { key: TaskFilter; label: string }[] = [
   { key: 'upcoming', label: 'Upcoming' },
   { key: 'completed', label: 'Done' },
 ];
-
-export type QuickAddHandler = (text: string) => Promise<void>;
-
-/** Default quick add: parse locally. Phase 4 swaps in the server NL parser when online. */
-export const localQuickAdd: QuickAddHandler = async (text) => {
-  const parsed = parseQuickAdd(text);
-  await TasksRepo.create(parsed);
-};
 
 function TaskRow({ task, onOpen }: { task: Task; onOpen: () => void }) {
   const due = formatDue(task.due_at);
@@ -57,14 +49,14 @@ function TaskRow({ task, onOpen }: { task: Task; onOpen: () => void }) {
   );
 }
 
-export default function TasksScreen({ onQuickAdd = localQuickAdd }: { onQuickAdd?: QuickAddHandler }) {
+export default function TasksScreen() {
   const nav = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
   const [filter, setFilter] = useState<TaskFilter>('all');
   const { data: tasks = [] } = useLiveQuery(() => TasksRepo.list(filter), ['tasks'], [filter]);
 
   return (
     <Screen>
-      <AddBar placeholder='Add a task — "Call mom tomorrow at 5pm #family !high"' onSubmit={onQuickAdd} />
+      <AddBar placeholder='Add a task — "Call mom tomorrow at 5pm #family !high"' onSubmit={quickAddTask} />
       <View>
         <ScrollView horizontal showsHorizontalScrollIndicator={false} style={{ marginBottom: 12 }}>
           {FILTERS.map((f) => (
