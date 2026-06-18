@@ -1,0 +1,12 @@
+{
+  "mcpServers": {
+    "orbit": {
+      "command": "orbit-mcp",
+      "env": {
+        "ORBIT_API_URL": "http://localhost:8000",
+        "ORBIT_EMAIL": "you@example.com",
+        "ORBIT_PASSWORD": "your-password"
+      }
+    }
+  }
+}
